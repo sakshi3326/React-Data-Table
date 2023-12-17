@@ -53,15 +53,16 @@ const DataTable = () => {
   }, [filters]);
 
   const sortedData = [...filteredData].sort((a, b) => {
-    const aValue = a[sortKey];
-    const bValue = b[sortKey];
-
+    const aValue = a[sortKey] || ''; // Handle undefined or null values
+    const bValue = b[sortKey] || ''; // Handle undefined or null values
+  
     if (sortOrder === 'asc') {
       return aValue.localeCompare(bValue);
     } else {
       return bValue.localeCompare(aValue);
     }
   });
+  
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
