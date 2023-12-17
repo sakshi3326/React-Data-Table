@@ -93,12 +93,31 @@ const DataTable = () => {
   const renderTableData = () => {
     return currentItems.map((item) => (
       <tr key={item.id}>
-        {Object.values(item).map((value) => (
-          <td key={value}>{value}</td>
+        {Object.entries(item).map(([key, value]) => (
+          <td key={key}>
+            {filters[key] ? (
+              <span>
+                {value
+                  .split(new RegExp(`(${filters[key]})`, 'gi'))
+                  .map((part, index) =>
+                    part.toLowerCase() === filters[key].toLowerCase() ? (
+                      <mark key={index} style={{ backgroundColor: 'red' }}>
+                        {part}
+                      </mark>
+                    ) : (
+                      part
+                    )
+                  )}
+              </span>
+            ) : (
+              value
+            )}
+          </td>
         ))}
       </tr>
     ));
   };
+  
 
   const renderPagination = () => {
     const pageNumbers = [];
