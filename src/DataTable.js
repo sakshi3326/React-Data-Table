@@ -68,6 +68,10 @@ const DataTable = () => {
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderTableHeader = () => {
+    if (!data || data.length === 0) {
+      return null; // or handle the case when data is empty
+    }
+  
     return (
       <tr>
         {Object.keys(data[0]).map((key) => (
@@ -83,7 +87,7 @@ const DataTable = () => {
       </tr>
     );
   };
-
+  
   const renderTableData = () => {
     return currentItems.map((item) => (
       <tr key={item.id}>
